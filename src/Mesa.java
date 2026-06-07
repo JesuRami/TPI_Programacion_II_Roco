@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class Mesa {
     private ArrayList<Carta> mazo;
@@ -42,9 +43,21 @@ public class Mesa {
         return mazo;
     }
 
+    public ArrayList<Jugador> definirJugadores(){
+        jugadores.add(new Jugador());
+        jugadores.add(new Jugador());
+        return jugadores;
+    }
+
     public void verMazo() {
+        System.out.println("---Cartas del Mazo.");
         for (Carta carta : mazo) {
             System.out.println(carta);
         }
+        System.out.println("");
+    }
+
+    public void barajarMazo(){
+        Collections.shuffle(mazo);
     }
 }

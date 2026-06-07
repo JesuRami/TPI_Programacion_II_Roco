@@ -13,4 +13,12 @@ public class Jugador {
     public void setMano(ArrayList<Carta> mano) {
         this.mano = mano;
     }
+
+    public void verMano(){
+        System.out.println("---Mano.");
+        for (Carta carta : mano) {
+            System.out.println(carta);
+        }
+        System.out.println(" ");
+    }
 }
