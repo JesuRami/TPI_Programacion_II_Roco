@@ -43,10 +43,11 @@ public class Mesa {
         return mazo;
     }
 
-    public ArrayList<Jugador> definirJugadores(){
-        jugadores.add(new Jugador());
-        jugadores.add(new Jugador());
-        return jugadores;
+    public void definirJugadores(int cantidadJugadores) {
+        jugadores.clear();
+        for (int i = 0; i < cantidadJugadores; i++) {
+            jugadores.add(new Jugador());
+        }
     }
 
     public void verMazo() {
@@ -54,10 +55,33 @@ public class Mesa {
         for (Carta carta : mazo) {
             System.out.println(carta);
         }
-        System.out.println("");
+        System.out.println("\n");
+    }
+
+    public void cartasRestantesMazo(){
+        System.out.println("Cartas en el mazo: "+mazo.size()+".\n");
     }
 
     public void barajarMazo(){
         Collections.shuffle(mazo);
     }
+
+    public void repartirManos(int cantidadCartas) {
+        for (int i = 0; i < cantidadCartas; i++) {
+            for (Jugador jugador : jugadores) {
+                if (!mazo.isEmpty()) {
+                    jugador.recibirCarta(robarCarta());
+                }
+            }
+        }
+    }
+    public Carta robarCarta() {
+        if (mazo.isEmpty()) {
+            return null;
+        }
+        //Se agarra y remueve la última carta porque, si fuese la primera,
+        //tendríamos que estar moviendo los elementos de la lista al principio todo el rato.
+        return mazo.removeLast();
+    }
+
 }

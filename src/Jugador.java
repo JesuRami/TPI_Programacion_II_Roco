@@ -4,7 +4,7 @@ public class Jugador {
     private ArrayList<Carta> mano;
 
     public Jugador() {
-        this.mano = new ArrayList<Carta>();
+        this.mano = new ArrayList<>();
     }
 
     public ArrayList<Carta> getMano() {
@@ -20,5 +20,12 @@ public class Jugador {
             System.out.println(carta);
         }
         System.out.println(" ");
+    }
+
+    public void jugarCarta(){
+        //.
+    }
+    public void recibirCarta(Carta c){
+        mano.add(c);
     }
 }
