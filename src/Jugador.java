@@ -14,18 +14,24 @@ public class Jugador {
         this.mano = mano;
     }
 
-    public void verMano(){
+    public void verMano() {
         System.out.println("---Mano.");
-        for (Carta carta : mano) {
-            System.out.println(carta);
+        for (int i = 0; i < mano.size(); i++) {
+            System.out.println(i + ". " + mano.get(i));
         }
         System.out.println(" ");
     }
 
-    public void jugarCarta(){
-        //.
+    public Carta jugarCarta(int index) {
+        if (index >= 0 && index < mano.size()) {
+            return mano.remove(index);
+        }
+        return null;
     }
-    public void recibirCarta(Carta c){
-        mano.add(c);
+
+    public void recibirCarta(Carta c) {
+        if (c != null) {
+            mano.add(c);
+        }
     }
 }

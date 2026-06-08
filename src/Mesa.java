@@ -12,24 +12,13 @@ public class Mesa {
         this.jugadores = new ArrayList<>();
     }
 
-    public ArrayList<Carta> getMazo() {
-        return mazo;
-    }
-    public void setMazo(ArrayList<Carta> mazo) {
-        this.mazo = mazo;
-    }
-    public ArrayList<Carta> getCartasMesa() {
-        return cartasMesa;
-    }
-    public void setCartasMesa(ArrayList<Carta> cartasMesa) {
-        this.cartasMesa = cartasMesa;
-    }
-    public ArrayList<Jugador> getJugadores() {
-        return jugadores;
-    }
-    public void setJugadores(ArrayList<Jugador> jugadores) {
-        this.jugadores = jugadores;
-    }
+    // Getters y Setters
+    public ArrayList<Carta> getMazo() { return mazo; }
+    public void setMazo(ArrayList<Carta> mazo) { this.mazo = mazo; }
+    public ArrayList<Carta> getCartasMesa() { return cartasMesa; }
+    public void setCartasMesa(ArrayList<Carta> cartasMesa) { this.cartasMesa = cartasMesa; }
+    public ArrayList<Jugador> getJugadores() { return jugadores; }
+    public void setJugadores(ArrayList<Jugador> jugadores) { this.jugadores = jugadores; }
 
     public ArrayList<Carta> definirMazo() {
         for (int i = 1; i <= 12; i++) {
@@ -62,8 +51,17 @@ public class Mesa {
         System.out.println("Cartas en el mazo: "+mazo.size()+".\n");
     }
 
-    public void barajarMazo(){
+    public void barajarMazo() {
         Collections.shuffle(mazo);
+    }
+
+
+    public void repartirMesa(int cantidadCartas) {
+        for (int i = 0; i < cantidadCartas; i++) {
+            if (!mazo.isEmpty()) {
+                cartasMesa.add(robarCarta());
+            }
+        }
     }
 
     public void repartirManos(int cantidadCartas) {
@@ -75,13 +73,34 @@ public class Mesa {
             }
         }
     }
+
     public Carta robarCarta() {
         if (mazo.isEmpty()) {
             return null;
         }
-        //Se agarra y remueve la última carta porque, si fuese la primera,
-        //tendríamos que estar moviendo los elementos de la lista al principio todo el rato.
+        // Quitamos la última y no la primera para no tener que andar reajustando
+        // los índices del mazo cada vez que le quitamos una carta.
         return mazo.removeLast();
     }
 
+    public void verMesa() {
+        System.out.println("---Cartas en la Mesa.");
+        for (int i = 0; i < cartasMesa.size(); i++) {
+            System.out.println(i + ". " + cartasMesa.get(i));
+        }
+        System.out.println(" ");
+    }
+
+    public Carta tomarCartaMesa(int index) {
+        if (index >= 0 && index < cartasMesa.size()) {
+            return cartasMesa.remove(index);
+        }
+        return null;
+    }
+
+    public void dejarCartaMesa(Carta c) {
+        if (c != null) {
+            cartasMesa.add(c);
+        }
+    }
 }
