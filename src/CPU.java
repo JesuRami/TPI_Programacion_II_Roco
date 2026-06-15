@@ -1,10 +1,10 @@
 import java.util.ArrayList;
 
-public class Jugador {
+public class CPU {
     private ArrayList<Carta> mano;
     private ArrayList<Carta> casita;
 
-    public Jugador() {
+    public CPU() {
         this.mano = new ArrayList<>();
         this.casita = new ArrayList<>();
     }
@@ -16,26 +16,8 @@ public class Jugador {
         return casita;
     }
 
-    public void verMano() {
-        System.out.println("---Mano.");
-        for (int i = 0; i < mano.size(); i++) {
-            System.out.println(i + ". " + mano.get(i));
-        }
-        System.out.println(" ");
-    }
-
-    public void verCasita() {
-        System.out.println("---Casita jugador.");
-        System.out.println("Carta superior: " + casita.getLast() + ".");
-        System.out.println("Tamaño: " + casita.size() + ".");
-    }
-
     public void recibirCarta(Carta carta) {
         mano.add(carta);
-    }
-
-    public void dejarCartaMesa(int iMano, ArrayList<Carta> mesa) {
-        mesa.add(mano.remove(iMano));
     }
 
     public void moverACasita(int iMano, ArrayList<Carta> mesa){
@@ -47,5 +29,11 @@ public class Jugador {
             }
             i += 1;
         }
+    }
+
+    public void verCasita() {
+        System.out.println("---Casita CPU.");
+        System.out.println("Carta superior: " + casita.getLast() + ".");
+        System.out.println("Tamaño: " + casita.size() + ".");
     }
 }
