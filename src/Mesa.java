@@ -16,33 +16,37 @@ public class Mesa {
         return cartasMesa;
     }
 
-
-    public void repartirMesa(ArrayList<Carta> mesa) {
+    public void repartirMesa() {
         for (int i = 0; i < 4; i++) {
             if (!mazo.getMazo().isEmpty()) {
-                mesa.add(mazo.getMazo().removeLast());
+                this.cartasMesa.add(mazo.getMazo().removeLast());
             } else {
-                System.out.println("El mazo está vacío.");
+                System.out.println("El mazo está vacío al armar la mesa.");
                 break;
             }
         }
     }
 
-    public void repartirManos(Jugador jugador, CPU cpu) {
-        for (int i = 0; i < 3; i++) {
+    public void repartirManos(Jugador j1, Jugador j2) {
+        for (int i = 0; i < 3; i++) { 
             if (!mazo.getMazo().isEmpty()){
-                jugador.recibirCarta(mazo.getMazo().removeLast());
-                cpu.recibirCarta(mazo.getMazo().removeLast());
-            } else{
-                System.out.println("El mazo está vaciío.");
+                j1.recibirCarta(mazo.getMazo().removeLast());
+            }
+            if (!mazo.getMazo().isEmpty()){
+                j2.recibirCarta(mazo.getMazo().removeLast());
             }
         }
+
     }
 
     public void verMesa() {
-        System.out.println("---Cartas en la Mesa.");
-        for (int i = 0; i < cartasMesa.size(); i++) {
-            System.out.println(i + ". " + cartasMesa.get(i));
+        System.out.println("--- Cartas en la Mesa.");
+        if (cartasMesa.isEmpty()) {
+            System.out.println("No hay cartas en la mesa.");
+        } else {
+            for (int i = 0; i < cartasMesa.size(); i++) {
+                System.out.println(i + ". " + cartasMesa.get(i));
+            }
         }
         System.out.println(" ");
     }
