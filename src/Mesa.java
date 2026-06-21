@@ -36,7 +36,7 @@ public class Mesa {
                 j2.recibirCarta(mazo.getMazo().removeLast());
             }
         }
-
+        System.out.println("Se han repartido cartas.");
     }
 
     public void verMesa() {

@@ -2,24 +2,24 @@ import java.util.ArrayList;
 
 public class Juego {
     private Jugador jugador1;
-    private Jugador jugador2; 
+    private Jugador jugador2;
     private Mesa mesa;
-    private Menu menu; 
+    private Menu menu;
 
     public Juego() {
         this.jugador1 = new Jugador();
         this.jugador2 = new Jugador();
         this.mesa = new Mesa();
-        this.menu = new Menu(); 
+        this.menu = new Menu();
     }
 
     public void jugarCasitaRobada() {
         mesa.getMazo().definirMazo();
         mesa.getMazo().barajarMazo();
-        mesa.repartirMesa(); 
+        mesa.repartirMesa();
 
         boolean juegoActivo = true;
-        int turno = 0; 
+        int turno = 0;
 
         while (juegoActivo) {
             // Si ambos se quedan sin cartas, se vuelven a repartir manos
@@ -33,20 +33,20 @@ public class Juego {
                 mesa.repartirManos(jugador1, jugador2);
             }
 
-            System.out.println("\n   Turno del JUGADOR " + (turno == 0 ? "1" : "2"));
+            System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n-----Turno del JUGADOR " + (turno == 0 ? "1" : "2"));
 
             if (turno == 0) {
                 juegoActivo = menu.mostrarMenuUsuario(this, jugador1, mesa, jugador2);
             } else {
                 juegoActivo = menu.mostrarMenuUsuario(this, jugador2, mesa, jugador1);
             }
-            
+
             // Si el juego sigue activo tras la jugada, cambia el turno
             if (juegoActivo) {
                 turno = (turno + 1) % 2;
             }
         }
-        menu.cerrarScanner(); 
+        menu.cerrarScanner();
     }
 
     public boolean mesaACasita(Jugador jugador, Mesa mesa, java.util.Scanner scanner) {
@@ -63,25 +63,28 @@ public class Juego {
             for (Carta cartaMesa : cartasMesa) {
                 if (cartaMano.getNumero() == cartaMesa.getNumero()) {
                     tieneJuego = true;
-                    break; 
+                    break;
                 }
             }
-            if (tieneJuego) break; 
+            if (tieneJuego) break;
         }
 
         if (!tieneJuego) {
-            System.out.println("\nNo coinciden las cartas de tus manos con las de la mesa.");
+            System.out.println("\nNo coinciden las cartas de tu mano con las de la mesa.");
             return false;
         }
 
-        System.out.println("\n--- TUS COINCIDENCIAS DISPONIBLES ---");
         System.out.println("Tu mano actual:");
         for (int i = 0; i < mano.size(); i++) {
             System.out.println(i + ". " + mano.get(i).toString());
         }
 
-        System.out.print("¿Qué carta sacas de tu mano para mover a la casa? (Ingresa el número de índice): ");
-        int iMano = scanner.nextInt(); 
+        System.out.print("¿Qué carta sacas de tu mano?: ");
+        while (!scanner.hasNextInt()) {
+            System.out.print("Debe ser un entero. Ingresa el índice: ");
+            scanner.next();
+        }
+        int iMano = scanner.nextInt();
 
         if (iMano < 0 || iMano >= mano.size()) {
             System.out.println("Opción inválida. No tenés esa carta.");
@@ -93,7 +96,6 @@ public class Juego {
         boolean cartaElegidaEsValida = false;
         for (Carta cartaMesa : cartasMesa) {
             if (cartaSeleccionada.getNumero() == cartaMesa.getNumero()) {
-                System.out.println("Coincidencia levantada -> Mano: " + cartaSeleccionada.toString() + " ; Mesa: " + cartaMesa.toString() + ".");
                 cartaElegidaEsValida = true;
             }
         }
@@ -103,7 +105,7 @@ public class Juego {
             System.out.println("¡Movimiento realizado con éxito!");
             return true;
         } else {
-            System.out.println("\n¡Error! Elegiste el " + cartaSeleccionada.toString() + " pero esa carta no coincide con la mesa.");
+            System.out.println("\n" + cartaSeleccionada.toString() + " no coincide con la mesa.");
             return false;
         }
     }
@@ -119,7 +121,11 @@ public class Juego {
             System.out.println(i + ". " + mano.get(i).toString());
         }
 
-        System.out.print("¿Qué carta querés dejar en la mesa? (Ingresa el número de índice): ");
+        System.out.print("¿Qué carta querés dejar en la mesa?: ");
+        while (!scanner.hasNextInt()) {
+            System.out.print("Debe ser un entero. Ingresa el índice: ");
+            scanner.next();
+        }
         int iMano = scanner.nextInt();
 
         if (iMano < 0 || iMano >= mano.size()) {
@@ -130,7 +136,7 @@ public class Juego {
         Carta cartaSeleccionada = mano.get(iMano);
 
         if (buscarCoincidenciaDeCarta(cartaSeleccionada, cartasMesa)) {
-            System.out.println("\n¡Esa carta coincide con la mesa! Debes mandarla a la casita (Opción 3).");
+            System.out.println("\nEsa carta coincide con la mesa.");
             return false;
         }
 
@@ -159,7 +165,7 @@ public class Juego {
         }
 
         if (!tieneRobo) {
-            System.out.println("\nNo tenés ninguna carta en la mano que coincida con el tope de la casita rival (" + cartaTopeRival + ").");
+            System.out.println("\nNo tenés ninguna carta en la mano que coincida con el " + cartaTopeRival + ".");
             return false;
         }
 
@@ -170,7 +176,11 @@ public class Juego {
             System.out.println(i + ". " + mano.get(i));
         }
 
-        System.out.print("¿Con qué carta querés robar la casita? (Ingresa el índice): ");
+        System.out.print("¿Con qué carta querés robar la casita?: ");
+        while (!scanner.hasNextInt()) {
+            System.out.print("Debe ser un entero. Ingresa el índice: ");
+            scanner.next();
+        }
         int iMano = scanner.nextInt();
 
         if (iMano < 0 || iMano >= mano.size()) {
